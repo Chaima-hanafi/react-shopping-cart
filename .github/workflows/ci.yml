@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-##
+
       - name: Build React App (optional)
         run: npm run build --if-present
 
@@ -41,21 +41,23 @@ jobs:
           push: true
           tags: elhanafi856/react-shopping-cart:latest
 
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
 
-
-  Deploy:       
+    steps:
       - name: Setup SSH key
         uses: webfactory/ssh-agent@v0.8.0
         with:
-          host: ${{ secrets.SSH_HOST}}
-          username: ${{secrets.SSH_USER}}
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          port: ${{ secrets.SSH_PORT}}
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-           
+
       - name: Deploy on remote server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          ssh -o StrictHostKeyChecking=no user@ip_de_ta_vm << 'EOF'
+          ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST << 'EOF'
             echo "Pull latest Docker image"
             sudo docker pull elhanafi856/react-shopping-cart:latest
 
@@ -65,4 +67,4 @@ jobs:
 
             echo "Run new container"
             sudo docker run -d -p 3000:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:latest
-            EOF
+          EOF
