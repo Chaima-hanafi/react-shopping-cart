@@ -57,14 +57,14 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST << 'EOF'
+          
             echo "Pull latest Docker image"
             sudo docker pull elhanafi856/react-shopping-cart:latest
 
             echo "Stop and remove old containers"
-            sudo docker stop $(sudo docker ps -q --filter ancestor=elhanafi856/react-shopping-cart) || true
-            sudo docker rm $(sudo docker ps -a -q --filter ancestor=elhanafi856/react-shopping-cart) || true
+            sudo docker stop  react-shopping-cart || true
+            sudo docker rm react-shopping-cart || true
 
             echo "Run new container"
             sudo docker run -d -p 3000:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:latest
-          EOF
+        
