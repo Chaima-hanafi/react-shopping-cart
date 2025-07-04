@@ -56,8 +56,8 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+        script: |
+          
             echo "Pull latest Docker image"
             sudo docker pull elhanafi856/react-shopping-cart:latest
 
@@ -67,4 +67,4 @@ jobs:
 
             echo "Run new container"
             sudo docker run -d -p 3000:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:latest
-          EOF
+    
