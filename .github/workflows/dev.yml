@@ -36,4 +36,4 @@ jobs:
             docker pull elhanafi856/app-dev:latest
             docker stop app-dev || true
             docker rm app-dev || true
-            docker run -d -p 3001:3000 --restart unless-stopped --name app-dev elhanafi856/app-dev:latest
+            docker run -d -p 3001:3000 --name dev elhanafi856/app-dev
