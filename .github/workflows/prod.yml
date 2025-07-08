@@ -1,5 +1,4 @@
-name: Build, Push Docker Image and Deploy
-
+name: prod
 on:
   push:
     branches:

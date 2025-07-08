@@ -59,6 +59,6 @@ jobs:
             docker rm app-test || true
 
             echo "Run new container"
-            docker run -d -p 3002:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:testlatest
+            docker run -d -p 3002:3000 --restart unless-stopped --name app-test elhanafi856/react-shopping-cart:testlatest
             
 ##
