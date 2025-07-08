@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build React App (optional)
-        run: npm run build --if-present
-
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -63,4 +60,4 @@ jobs:
 
             echo "Run new container"
             docker run -d -p 3000:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:latest
-##hello
+            
