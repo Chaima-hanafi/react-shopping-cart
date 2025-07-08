@@ -55,9 +55,9 @@ jobs:
             docker pull elhanafi856/react-shopping-cart:devlatest
 
             echo "Stop and remove old container if exists"
-            docker stop react-shopping-cart || true
-            docker rm react-shopping-cart || true
+            docker stop app-dev || true
+            docker rm app-dev || true
 
             echo "Run new container"
-            docker run -d -p 3000:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:devlatest
+            docker run -d -p 3001:3000 --restart unless-stopped --name react-shopping-cart elhanafi856/react-shopping-cart:devlatest
             
