@@ -36,4 +36,5 @@ jobs:
             docker pull elhanafi856/app-test:latest
             docker stop app-test || true
             docker rm app-test || true
-            docker run -d -p 3002:3000 --restart unless-stopped --name app-test elhanafi856/app-test:latest
+            docker run -d -p 3002:3000 --name app-test elhanafi856/app-test
+
